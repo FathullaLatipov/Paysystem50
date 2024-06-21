@@ -12,7 +12,7 @@ class UserModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True) # 17:50
 
     def __str__(self):
-        return self.title
+        return self.name
 
     class Meta:
         verbose_name = 'User'
