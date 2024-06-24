@@ -14,6 +14,19 @@ class UserModelSerializer(serializers.ModelSerializer):
         # exclude = ['id'] исключить
 
 
+class UserCardModelSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = UserCardModel
+        fields = '__all__'
+
+
+class TransferModelSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = TransferModel
+        fields = '__all__'
+
 # ДЗ
 # ПРОПИСАТЬ serializers ДЛЯ UserCardModel и TransferModel
 # ПРОПИСАТЬ views для новых serializers
