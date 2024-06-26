@@ -4,6 +4,7 @@ from users.models import UserModel, UserCardModel, TransferModel
 from users.serializers import UserModelSerializer, UserCardModelSerializer, TransferModelSerializer
 
 from rest_framework.filters import SearchFilter, OrderingFilter
+from django_filters.rest_framework import DjangoFilterBackend
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -12,13 +13,22 @@ from rest_framework import permissions
 
 from rest_framework.decorators import api_view
 
+from rest_framework.pagination import PageNumberPagination
+# from rest_framework.pagination import LimitOffsetPagination
+
+
+# переход через страницы и через числа
+class StandardResultsSetPagination(PageNumberPagination):
+    page_size = 2  #кол-во товаров на одном странице
+    max_page_size = 1000  # 1000
+
 
 @api_view()
 def hello_world(request):
     return Response({"message": "Hello, world!"})
 
-class TestAPIView(APIView):
 
+class TestAPIView(APIView):
 
     def get(self, request):
         users = UserModel.objects.all()  #user1, user2, user3
@@ -36,11 +46,11 @@ class TestAPIView(APIView):
 class UserModelListAPIView(generics.ListAPIView):
     queryset = UserModel.objects.all()
     serializer_class = UserModelSerializer
-    filter_backends = [SearchFilter, OrderingFilter]
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     search_fields = ['name', 'email']
     permission_classes = [permissions.AllowAny]
-
-
+    pagination_class = StandardResultsSetPagination
+    filterset_fields = ['name', 'phone_number']
 
 
 class UserModelCreateAPIView(generics.CreateAPIView):
@@ -118,6 +128,13 @@ class TransferModelDestroyAPIView(generics.DestroyAPIView):
     queryset = TransferModel.objects.all()
     serializer_class = TransferModelSerializer
 
-
 # На след уроке показать pagination
 # DjangoFilterBackend
+# change admin panel pip install -U django-jazzmin
+# ckeditor pip install django-ckeditor
+# excel file
+# templates NT
+# media files in API
+
+
+# На след урок скачать программу Docker

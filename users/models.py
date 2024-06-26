@@ -1,4 +1,5 @@
 from django.db import models
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class UserModel(models.Model):
@@ -18,12 +19,12 @@ class UserModel(models.Model):
         verbose_name = 'User'
         verbose_name_plural = 'Users'
 
-
 class UserCardModel(models.Model):
     card_name = models.CharField(max_length=130)
     card_number = models.IntegerField()
     balance = models.FloatField(default=0)
     user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
+    description = RichTextUploadingField(null=True, blank=True)
     exp_date = models.IntegerField()
 
     def __str__(self):
