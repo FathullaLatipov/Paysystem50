@@ -12,6 +12,8 @@ from rest_framework import status
 from rest_framework import permissions
 
 from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from rest_framework.pagination import PageNumberPagination
 # from rest_framework.pagination import LimitOffsetPagination
@@ -128,13 +130,11 @@ class TransferModelDestroyAPIView(generics.DestroyAPIView):
     queryset = TransferModel.objects.all()
     serializer_class = TransferModelSerializer
 
-# На след уроке показать pagination
-# DjangoFilterBackend
-# change admin panel pip install -U django-jazzmin
-# ckeditor pip install django-ckeditor
-# excel file
-# templates NT
-# media files in API
 
+class Home(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
 
-# На след урок скачать программу Docker
+    def get(self, request):
+        content = {'message': 'Hello, World!'}
+        return Response(content)
