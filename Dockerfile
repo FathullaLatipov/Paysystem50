@@ -7,4 +7,4 @@ WORKDIR /paysistem50
 # Установка библиотек
 RUN pip install -r requirements.txt
 # Запуск проекта
-CMD ["python", "manage.py", "runserver"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:7878"]
